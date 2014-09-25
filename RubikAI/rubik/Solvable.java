@@ -1,8 +1,17 @@
 package rubik;
 
-import java.io.InputStream;
-import java.util.Scanner;
-
+/*
+ * The main class in my Rubik's Cube Solver AI
+ * 
+ * Written by Kevin Pietrow
+ *
+ *
+ * To serve as a reference. 
+ * I'll be converting every character into a number to save space
+ * [R, G, Y, B, O, W]
+ * [0, 1, 2, 3, 4, 5]
+ * 
+ */
 
 public class Solvable {
 	public static void main(String [ ] args) {
@@ -16,6 +25,7 @@ public class Solvable {
 		
 		input = ir.inputFile(input);
 		input = ir.sortInput(input);
-		System.out.println(input);
+		
+		Cube cube = new Cube(input);
 	}
 }

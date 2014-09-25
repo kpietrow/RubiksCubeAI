@@ -1,0 +1,14 @@
+package rubik;
+
+/*
+ * To serve as a reference. 
+ * I'll be converting every character into a number to save space
+ * [R, G, Y, B, O, W]
+ * [0, 1, 2, 3, 4, 5]
+ * 
+ * 
+ */
+
+public class Cube {
+
+}

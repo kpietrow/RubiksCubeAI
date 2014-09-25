@@ -50,27 +50,27 @@ public class InputReader {
 				if (chr.equals("R")) {
 					letters[0] += 1;
 					index += 1;
-					sorted += chr;
+					sorted += "0";
 				} else if (chr.equals("G")) {
 					letters[1] += 1;
 					index += 1;
-					sorted += chr;
+					sorted += "1";
 				} else if (chr.equals("Y")) {
 					letters[2] += 1;
 					index += 1;
-					sorted += chr;
+					sorted += "2";
 				} else if (chr.equals("B")) {
 					letters[3] += 1;
 					index += 1;
-					sorted += chr;
+					sorted += "3";
 				} else if (chr.equals("O")) {
 					letters[4] += 1;
 					index += 1;
-					sorted += chr;
+					sorted += "4";
 				} else if (chr.equals("W")) {
 					letters[5] += 1;
 					index += 1;
-					sorted += chr;
+					sorted += "5";
 					
 				// don't stress over whitespace
 				} else if (chr.matches("\\s")) {

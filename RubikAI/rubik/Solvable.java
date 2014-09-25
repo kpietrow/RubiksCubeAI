@@ -14,8 +14,8 @@ public class Solvable {
 			input += args[i];
 		}
 		
-		InputStream is = ir.inputFile(input);
-		input = ir.fileConverter(is);
+		input = ir.inputFile(input);
+		input = ir.sortInput(input);
 		System.out.println(input);
 	}
 }

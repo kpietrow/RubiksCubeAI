@@ -1,7 +1,9 @@
 package rubik;
 
+import java.io.BufferedReader;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.lang.reflect.Array;
@@ -9,67 +11,80 @@ import java.lang.reflect.Array;
 public class InputReader {
 	
 	public InputStream is;
-	public String input;
 
 	// will read in the file here
-	public InputStream inputFile(String file) {
-		try {
-			is = new FileInputStream("c://" + file);
-		} catch (FileNotFoundException e) {
-			System.out.println("ERROR: File not found.");
-			System.exit(0);
-		} catch (IOException e) {
-			System.out.println("ERROR: Something went wrong importing the file.");
-			System.exit(0);
-		}
+	public String inputFile(String file) {
+		String input = "";
 		
-		return is;
+		try {
+			BufferedReader br = new BufferedReader(new FileReader(file));
+	        StringBuilder sb = new StringBuilder();
+	        String line = br.readLine();
+
+	        while (line != null) {
+	            sb.append(line);
+	            sb.append(System.lineSeparator());
+	            line = br.readLine();
+	        }
+	        input = sb.toString();
+	    } catch (IOException e) {
+	    	System.out.println("ERROR: File could not be read properly");
+	    }
+		
+		return input;
 	}
 	
 	// convert the file
-	public String fileConverter(InputStream is) {
+	public String sortInput(String file) {
 		String chr;
 		int[] letters = new int[6];
 		int index = 0;
+		String sorted = "";
 		
 		try {
-			
-			// scan in file
-			java.util.Scanner s = new java.util.Scanner(is).useDelimiter("\\A");
-			
 			// iterate through file
-			while (s.hasNext()) {
-				chr = s.next();
+			for (int i = 0; i < file.length(); i++) {
+				chr = file.substring(i, i + 1);
 				
 				// check characters, add to respective array
-				if (chr == "R") {
+				if (chr.equals("R")) {
 					letters[0] += 1;
-				} else if (chr == "G") {
+					index += 1;
+					sorted += chr;
+				} else if (chr.equals("G")) {
 					letters[1] += 1;
-				} else if (chr == "Y") {
+					index += 1;
+					sorted += chr;
+				} else if (chr.equals("Y")) {
 					letters[2] += 1;
-				} else if (chr == "B") {
+					index += 1;
+					sorted += chr;
+				} else if (chr.equals("B")) {
 					letters[3] += 1;
-				} else if (chr == "O") {
+					index += 1;
+					sorted += chr;
+				} else if (chr.equals("O")) {
 					letters[4] += 1;
-				} else if (chr == "W") {
+					index += 1;
+					sorted += chr;
+				} else if (chr.equals("W")) {
 					letters[5] += 1;
+					index += 1;
+					sorted += chr;
 					
 				// don't stress over whitespace
 				} else if (chr.matches("\\s")) {
 				
 				// IT'S A TRAP
 				} else {
-					System.out.println("ERROR: Invalid character.");
+					System.out.println("ERROR: Invalid character: " + chr);
 					System.exit(0);
 				}
 				
-				index += 1;
-				input += chr;
 			}
 		
 		if (index != 54) {
-			System.out.println("ERROR: Invalid number of characters.");
+			System.out.println("ERROR: Invalid number of characters: " + index);
 			System.exit(0);
 		}
 		
@@ -80,7 +95,7 @@ public class InputReader {
 		}
 		
 		} finally {
-			return input;
+			return sorted;
 		}
 	
 	

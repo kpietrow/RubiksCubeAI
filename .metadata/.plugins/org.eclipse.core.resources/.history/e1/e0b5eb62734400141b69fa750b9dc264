@@ -1,0 +1,10 @@
+package rubik;
+
+
+public class Solvable {
+	public static void main(String [ ] args) {
+		Scanner reader = new Scanner(System.in);
+		
+		String fileName = reader.
+	}
+}

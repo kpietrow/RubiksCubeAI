@@ -1,0 +1,14 @@
+package rubik;
+
+import java.io.FileInputStream;
+import java.io.InputStream;
+
+public class InputReader {
+	
+	public InputStream is;
+	
+	public void inputFile(String file) {
+		// will read in the file here
+	}
+	
+}

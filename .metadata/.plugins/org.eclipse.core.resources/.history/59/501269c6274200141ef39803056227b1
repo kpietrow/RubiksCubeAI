@@ -1,0 +1,9 @@
+package rubik;
+
+public class InputReader {
+	
+	public void (String file) {
+		
+	}
+	
+}

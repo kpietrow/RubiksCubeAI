@@ -25,12 +25,19 @@ public class Cube {
 	
 	public Cube(String positions) {
 		red = sideConstructor(red, positions.substring(0, 9));
-		green = sideConstructor(green, positions.substring(9, 18));
-		yellow = sideConstructor(yellow, positions.substring(18, 27));
-		blue = sideConstructor(blue, positions.substring(27, 36));
+		green = sideConstructor(green, positions.substring(9, 12) + positions.substring(18, 21) + positions.substring(27, 30));
+		yellow = sideConstructor(yellow, positions.substring(12, 15) + positions.substring(21, 24) + positions.substring(30, 33));
+		blue = sideConstructor(blue, positions.substring(15, 18) + positions.substring(24, 27) + positions.substring(33, 36));
 		orange = sideConstructor(orange, positions.substring(36, 45));
 		white = sideConstructor(white, positions.substring(45, 54));
-
+		
+		centerCheck(red, 0);
+		centerCheck(green, 1);
+		centerCheck(yellow, 2);
+		centerCheck(blue, 3);
+		centerCheck(orange, 4);
+		centerCheck(white, 5);
+		
 	}
 	
 	private int[][] sideConstructor(int[][] side, String positions) {
@@ -46,5 +53,15 @@ public class Cube {
 		
 		return side;
 	}
-
+	
+	private void centerCheck(int[][] side, int color) {
+		if (side[1][1] != color) {
+			System.out.println("false");
+			System.out.println(color);
+			System.out.println(side[1][1]);
+			System.exit(0);
+		}
+	}
+	
+	
 }

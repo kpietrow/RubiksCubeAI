@@ -1,9 +1,0 @@
-package rubik;
-
-public class InputReader {
-	
-	public void inputFile(String file) {
-		// will read in the file here
-	}
-	
-}

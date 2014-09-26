@@ -31,7 +31,7 @@ public class Solvable {
 		Solver solver = new Solver(cube.getSides());
 		solver.centerCheck();
 		solver.cornerCheck();
-		//solver.cornerParity();
+		solver.cornerParity();
 		
 		// Success!!!
 		System.out.println("true");

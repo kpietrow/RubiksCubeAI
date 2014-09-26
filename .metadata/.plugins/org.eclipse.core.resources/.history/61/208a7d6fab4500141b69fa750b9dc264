@@ -155,7 +155,7 @@ public class Solver {
 					// put given corners into the correct order
 					givenCornersCorrectOrder[x] = givenCornersGivenOrder[i];
 					
-					// record the how the valid corners are represented in the given order
+					// record the valid corner of each given corner in the given order
 					// ex: [5, 1, 3, etc.] 
 					givenCornersPositions[i] = x;
 				}
@@ -167,12 +167,13 @@ public class Solver {
 			}	
 		}
 		
-		parity = parity % 3;
+		this.parity = parity % 3;
+		System.out.println(parity);
+		System.out.println(this.parity);
 		
-		if (parity == 1) {
-			System.out.println("false");
-			System.exit(0);
-		}
+		System.out.println(Arrays.toString(givenCornersPositions));
+		System.out.println(Arrays.deepToString(givenCornersGivenOrder));
+		System.out.println(Arrays.deepToString(givenCornersCorrectOrder));
 	}
 	
 	

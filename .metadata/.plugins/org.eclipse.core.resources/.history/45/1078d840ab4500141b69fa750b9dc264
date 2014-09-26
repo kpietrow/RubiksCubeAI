@@ -33,7 +33,9 @@ public class Solver {
 	
 	// given corners in the correct order
 	private int[][] givenCornersCorrectOrder = {{-1}, {-1}, {-1}, {-1}, {-1}, {-1}, {-1}, {-1}};
-		
+	
+	private int parity = 0;
+	
 	// { G Y R }, { R Y B}, { B Y O }, { O Y G }, { G W O }, { O W B }, { B W R }, { R W G }
 	private int[][] validCorners = {{1, 2, 0}, {0, 2, 3}, {3, 2, 4}, {4, 2, 1}, {1, 5, 4}, {4, 5, 3}, {3, 5, 0}, {0, 5, 1}};
 	
@@ -124,7 +126,6 @@ public class Solver {
 				temp[1] = corner[0];
 				temp[2] = corner[1];
 				
-				// increase parity
 				parity = parity + 1;
 				corner = temp;
 			
@@ -137,7 +138,6 @@ public class Solver {
 				temp[1] = corner[2];
 				temp[2] = corner[0];
 				
-				// increase parity
 				parity = parity + 2;
 				corner = temp;
 				
@@ -155,8 +155,7 @@ public class Solver {
 					// put given corners into the correct order
 					givenCornersCorrectOrder[x] = givenCornersGivenOrder[i];
 					
-					// record the how the valid corners are represented in the given order
-					// ex: [5, 1, 3, etc.] 
+					// record where each
 					givenCornersPositions[i] = x;
 				}
 			}
@@ -167,12 +166,13 @@ public class Solver {
 			}	
 		}
 		
-		parity = parity % 3;
+		this.parity = parity % 3;
+		System.out.println(parity);
+		System.out.println(this.parity);
 		
-		if (parity == 1) {
-			System.out.println("false");
-			System.exit(0);
-		}
+		System.out.println(Arrays.toString(givenCornersPositions));
+		System.out.println(Arrays.deepToString(givenCornersGivenOrder));
+		System.out.println(Arrays.deepToString(givenCornersCorrectOrder));
 	}
 	
 	

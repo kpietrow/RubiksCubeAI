@@ -28,12 +28,11 @@ public class Solver {
 	// given corners in the given order
 	private int[][] givenCornersGivenOrder;
 	
-	// contains the positions, in terms of global alignment, of the given corners
-	private int[] givenCornersPositions= {-1, -1, -1, -1, -1, -1, -1, -1};
-	
 	// given corners in the correct order
 	private int[][] givenCornersCorrectOrder = {{-1}, {-1}, {-1}, {-1}, {-1}, {-1}, {-1}, {-1}};
-		
+	
+	private int parity = 0;
+	
 	// { G Y R }, { R Y B}, { B Y O }, { O Y G }, { G W O }, { O W B }, { B W R }, { R W G }
 	private int[][] validCorners = {{1, 2, 0}, {0, 2, 3}, {3, 2, 4}, {4, 2, 1}, {1, 5, 4}, {4, 5, 3}, {3, 5, 0}, {0, 5, 1}};
 	
@@ -87,28 +86,30 @@ public class Solver {
 			}
 		}
 		
+		this.parity = parity % 3;
+		System.out.println(this.parity);
+		System.out.println((parity % 3));
+		
 	}
 	
 	
 	
 	// make sure the corners are valid
 	// record the order
-	// check for corner parity
 	public void cornerCheck() {
 		
 		boolean valid = false;
 		int[] corner;
 		int[] temp = {-1, -1, -1};
 		int y = 0;
-		int parity = 0;
 		
 		// do the check
-		for (int i = 0; i < givenCornersGivenOrder.length; i++) {
+		for (int i = 0; i < givenCorners.length; i++) {
 			valid = false;
 			y = 0;
 			corner = null;
 			
-			corner = givenCornersGivenOrder[i];
+			corner = givenCorners[i];
 			
 			
 			// find Y or W index (we use this to orient)
@@ -124,8 +125,6 @@ public class Solver {
 				temp[1] = corner[0];
 				temp[2] = corner[1];
 				
-				// increase parity
-				parity = parity + 1;
 				corner = temp;
 			
 			// not strictly necessary, but here for code clarity and to make the else easier
@@ -137,8 +136,6 @@ public class Solver {
 				temp[1] = corner[2];
 				temp[2] = corner[0];
 				
-				// increase parity
-				parity = parity + 2;
 				corner = temp;
 				
 			// no index found. ERROR DETECTED. IT'S A TRAP!
@@ -152,26 +149,14 @@ public class Solver {
 				if (Arrays.equals(corner, validCorners[x])) {
 					valid = true;
 					
-					// put given corners into the correct order
-					givenCornersCorrectOrder[x] = givenCornersGivenOrder[i];
-					
-					// record the how the valid corners are represented in the given order
-					// ex: [5, 1, 3, etc.] 
-					givenCornersPositions[i] = x;
+					givenCornersCorrectOrder[x] = givenCorners[i];
 				}
 			}
 			
 			if (!valid) {
-				System.out.println("false");
+				System.out.println("false combo");
 				System.exit(0);
 			}	
-		}
-		
-		parity = parity % 3;
-		
-		if (parity == 1) {
-			System.out.println("false");
-			System.exit(0);
 		}
 	}
 	
@@ -201,7 +186,7 @@ public class Solver {
 				{orange[2][2] , white[0][2], blue[2][2]}, 
 				{blue[0][2], white[2][2], red[0][2]}, 
 				{red[0][0], white[2][0], green[0][0]}};
-		this.givenCornersGivenOrder = givenCorners;
+		this.givenCorners = givenCorners;
 		
 	}
 }

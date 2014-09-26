@@ -167,12 +167,18 @@ public class Solver {
 			}	
 		}
 		
+		System.out.println(parity);
 		parity = parity % 3;
+		System.out.println(parity);
 		
 		if (parity == 1) {
 			System.out.println("false");
 			System.exit(0);
 		}
+		
+		System.out.println(Arrays.toString(givenCornersPositions));
+		System.out.println(Arrays.deepToString(givenCornersGivenOrder));
+		System.out.println(Arrays.deepToString(givenCornersCorrectOrder));
 	}
 	
 	

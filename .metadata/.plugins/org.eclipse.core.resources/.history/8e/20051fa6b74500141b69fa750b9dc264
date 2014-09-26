@@ -83,33 +83,10 @@ public class Solver {
 		
 		int edgeParity = 0;
 		int cornerParity = 0;
-		int edge;
-		int corner;
 		
-		for (int i = 0; i < givenEdgesPositions.length; i++) {
-			edge = givenEdgesPositions[i];
-			
-			for (int x = i + 1; x < givenEdgesPositions.length; x++) {
-				if (edge > givenEdgesPositions[x]) {
-					edgeParity++;
-				}
-			}
-		}
 		
-		for (int i = 0; i < givenCornersPositions.length; i++) {
-			corner = givenCornersPositions[i];
-			
-			for (int x = i + 1; x < givenCornersPositions.length; x++) {
-				if (corner > givenCornersPositions[x]) {
-					cornerParity++;
-				}
-			}
-		}
 		
-		if ((edgeParity + cornerParity) % 2 != 0) {
-			System.out.println("false");
-			System.exit(0);
-		}
+		
 	}
 	
 	
@@ -138,6 +115,9 @@ public class Solver {
 				System.exit(0);
 			}	
 		}
+		
+		System.out.println(Arrays.deepToString(givenEdgesGivenOrder));
+		System.out.println(Arrays.toString(givenEdgesPositions));
 	}
 	
 	

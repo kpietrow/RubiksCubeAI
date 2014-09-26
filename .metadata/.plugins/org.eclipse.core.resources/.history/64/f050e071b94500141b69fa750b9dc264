@@ -106,10 +106,9 @@ public class Solver {
 			}
 		}
 		
-		if ((edgeParity + cornerParity) % 2 != 0) {
-			System.out.println("false");
-			System.exit(0);
-		}
+		
+		
+		
 	}
 	
 	
@@ -138,6 +137,9 @@ public class Solver {
 				System.exit(0);
 			}	
 		}
+		
+		System.out.println(Arrays.deepToString(givenEdgesGivenOrder));
+		System.out.println(Arrays.toString(givenEdgesPositions));
 	}
 	
 	

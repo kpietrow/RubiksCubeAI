@@ -138,6 +138,9 @@ public class Solver {
 				System.exit(0);
 			}	
 		}
+		
+		System.out.println(Arrays.deepToString(givenEdgesGivenOrder));
+		System.out.println(Arrays.toString(givenEdgesPositions));
 	}
 	
 	

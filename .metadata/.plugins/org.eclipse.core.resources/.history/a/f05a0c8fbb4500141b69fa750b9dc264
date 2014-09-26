@@ -39,8 +39,7 @@ public class InputReader {
 	        }
 	        input = sb.toString();
 	    } catch (IOException e) {
-	    	System.out.println("false");
-	    	System.exit(0);
+	    	System.out.println("ERROR: File could not be read properly");
 	    }
 		
 		return input;
@@ -89,20 +88,20 @@ public class InputReader {
 				
 				// IT'S A TRAP
 				} else {
-					System.out.println("false");
+					System.out.println("ERROR: Invalid character: " + chr);
 					System.exit(0);
 				}
 				
 			}
 		
 		if (index != 54) {
-			System.out.println("false");
+			System.out.println("ERROR: Invalid number of characters: " + index);
 			System.exit(0);
 		}
 		
 		if (letters[0] != 9 || letters[1] != 9 || letters[2] != 9 || letters[3] != 9
 				|| letters[4] != 9 || letters[5] != 9) {
-			System.out.println("false");
+			System.out.println("ERROR: Invalid amounts of characters.");
 			System.exit(0);
 		}
 		

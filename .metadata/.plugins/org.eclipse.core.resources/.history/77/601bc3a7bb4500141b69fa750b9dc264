@@ -39,8 +39,7 @@ public class InputReader {
 	        }
 	        input = sb.toString();
 	    } catch (IOException e) {
-	    	System.out.println("false");
-	    	System.exit(0);
+	    	System.out.println("ERROR: File could not be read properly");
 	    }
 		
 		return input;

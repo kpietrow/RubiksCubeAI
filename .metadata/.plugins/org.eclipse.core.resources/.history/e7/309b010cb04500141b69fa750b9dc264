@@ -36,14 +36,7 @@ public class Solver {
 		
 	// { G Y R }, { R Y B}, { B Y O }, { O Y G }, { G W O }, { O W B }, { B W R }, { R W G }
 	private int[][] validCorners = {{1, 2, 0}, {0, 2, 3}, {3, 2, 4}, {4, 2, 1}, {1, 5, 4}, {4, 5, 3}, {3, 5, 0}, {0, 5, 1}};
-	
-	
-	private int[][] validEdges = {{1, 4}, {1, 5}, {1, 0}, {0, 5}, {0, 3}, {3, 5}, {3, 4}, {4, 5}, {2, 4}, {1, 2}, {0, 2}, {1, 3}};
-	private int[][] givenEdgesGivenOrder;
-	private int[][] givenEdgesCorrectOrder = {{-1}, {-1}, {-1}, {-1}, {-1}, {-1}, {-1}, {-1}, {-1}, {-1}, {-1}, {-1}};
-	private int[] givenEdgesPositions= {-1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1};
-
-
+	private int[][] validEdges = 
 	
 	private HashMap<String, int[][]> sides = new HashMap<String, int[][]>();
 
@@ -52,7 +45,6 @@ public class Solver {
 		setSides();
 		setCorners();
 		setEdges();
-		checkEdges();
 	}
 	
 	
@@ -78,38 +70,26 @@ public class Solver {
 			System.exit(0);
 		}
 	}
-
-	public void permutationParity() {
-		
-	}
 	
 	
-	private void checkEdges() {
+	// checks for corner parity
+	public void cornerParity() {
 		
-		int[] edge = {-1};
-		boolean valid = false;
+		int[][] corners = {givenCornersCorrectOrder[0], givenCornersCorrectOrder[1], givenCornersCorrectOrder[2], givenCornersCorrectOrder[3]};
+		int[] corner = null;
+		int parity = 0;
 		
-		for (int i = 0; i < validEdges.length; i++) {
+		for (int i = 0; i < corners.length; i++) {
+			corner = corners[i];
 			
-			for (int x = 0; x < givenEdgesGivenOrder.length; x++) {
-				edge = givenEdgesGivenOrder[x];
-				Arrays.sort(edge);
-				
-				if (Arrays.equals(validEdges[i], edge)) {
-					givenEdgesCorrectOrder[x] = givenEdgesGivenOrder[x];
-					givenEdgesPositions[i] = x;
-					
-					valid = true;
-				}
+			if (corner[0] == 2) {
+				parity++;
+			} else if (corner[2] == 2) {
+				parity = parity + 2;
 			}
-			
-			if (!valid) {
-				System.out.println("false");
-				System.exit(0);
-			}	
 		}
+		
 	}
-	
 	
 	
 	
@@ -123,7 +103,6 @@ public class Solver {
 		int[] temp = {-1, -1, -1};
 		int y = 0;
 		int parity = 0;
-		int[] test = {-1};
 		
 		// do the check
 		for (int i = 0; i < givenCornersGivenOrder.length; i++) {
@@ -193,9 +172,8 @@ public class Solver {
 		
 		// unlikely, but check to make sure that two duplicate corners didn't sneak through
 		for (int i = 0; i < givenCornersCorrectOrder.length; i++) {
-			if (Arrays.equals(givenCornersCorrectOrder[i], test)) {
-				System.out.println("false");
-				System.exit(0);
+			if (givenCornersCorrectOrder[i] == -1) {
+				
 			}
 		}
 		
@@ -239,43 +217,5 @@ public class Solver {
 	
 	private void setEdges() {
 		
-		int[][] givenEdges = {
-				{green[2][1], orange[1][0]}, 
-				{green[1][0], white[1][0]}, 
-				{green[0][1], red[1][0]}, 
-				{red[0][1], white[2][1]}, 
-				{red[1][2], blue[0][1]}, 
-				{blue[1][2], white[1][2]}, 
-				{blue[2][1], orange[1][2]}, 
-				{white[0][1], orange[2][1]}, 
-				{orange[0][1], yellow[2][1]}, 
-				{green[1][2], yellow[1][0]}, 
-				{red[2][1], yellow[0][1]}, 
-				{blue[1][0], yellow[1][2]}	
-		};
-		
-		givenEdgesGivenOrder = givenEdges;
 	}
-	
-	
-	
-	// checks for corner parity
-	/*
-	public void cornerParity() {
-		
-		int[][] corners = {givenCornersCorrectOrder[0], givenCornersCorrectOrder[1], givenCornersCorrectOrder[2], givenCornersCorrectOrder[3]};
-		int[] corner = null;
-		int parity = 0;
-		
-		for (int i = 0; i < corners.length; i++) {
-			corner = corners[i];
-			
-			if (corner[0] == 2) {
-				parity++;
-			} else if (corner[2] == 2) {
-				parity = parity + 2;
-			}
-		}
-		
-	}*/
 }

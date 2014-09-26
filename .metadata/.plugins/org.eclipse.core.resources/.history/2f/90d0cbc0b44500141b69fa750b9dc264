@@ -101,13 +101,18 @@ public class Solver {
 					
 					valid = true;
 				}
+				
+				
 			}
 			
 			if (!valid) {
 				System.out.println("false");
 				System.exit(0);
-			}	
+			}
+			
 		}
+		
+		
 	}
 	
 	

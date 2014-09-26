@@ -98,16 +98,16 @@ public class Solver {
 				if (Arrays.equals(validEdges[i], edge)) {
 					givenEdgesCorrectOrder[x] = givenEdgesGivenOrder[x];
 					givenEdgesPositions[i] = x;
-					
-					valid = true;
 				}
+				
+				
 			}
 			
-			if (!valid) {
-				System.out.println("false");
-				System.exit(0);
-			}	
+			
+			
 		}
+		
+		
 	}
 	
 	

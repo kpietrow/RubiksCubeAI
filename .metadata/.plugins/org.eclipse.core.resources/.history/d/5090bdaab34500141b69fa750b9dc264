@@ -52,7 +52,6 @@ public class Solver {
 		setSides();
 		setCorners();
 		setEdges();
-		checkEdges();
 	}
 	
 	
@@ -95,19 +94,15 @@ public class Solver {
 				edge = givenEdgesGivenOrder[x];
 				Arrays.sort(edge);
 				
-				if (Arrays.equals(validEdges[i], edge)) {
-					givenEdgesCorrectOrder[x] = givenEdgesGivenOrder[x];
-					givenEdgesPositions[i] = x;
-					
-					valid = true;
-				}
+				
+				
 			}
 			
-			if (!valid) {
-				System.out.println("false");
-				System.exit(0);
-			}	
+			
+			
 		}
+		
+		
 	}
 	
 	

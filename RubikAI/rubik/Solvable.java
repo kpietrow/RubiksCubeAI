@@ -1,5 +1,6 @@
 package rubik;
 
+
 /*
  * The main class in my Rubik's Cube Solver AI
  * 
@@ -27,5 +28,9 @@ public class Solvable {
 		input = ir.sortInput(input);
 		
 		Cube cube = new Cube(input);
+		
+		Solver solver = new Solver(cube.getSides());
+		solver.centerCheck();
+		solver.simpleCornerCheck();
 	}
 }

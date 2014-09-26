@@ -1,0 +1,12 @@
+package rubik;
+
+public class Solver {
+
+
+	private void centerCheck(int[][] side, int color) {
+		if (side[1][1] != color) {
+			System.out.println("false");
+			System.exit(0);
+		}
+	}
+}

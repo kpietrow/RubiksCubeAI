@@ -1,5 +1,7 @@
 package rubik;
 
+import java.util.HashMap;
+
 /*
  * This class will be a cube. Each side will be a 2D array.
  * 
@@ -16,12 +18,14 @@ package rubik;
 
 public class Cube {
 	
-	public int[][] red = new int[3][3];
-	public int[][] green = new int[3][3];
-	public int[][] yellow = new int[3][3];
-	public int[][] blue = new int[3][3];
-	public int[][] orange = new int[3][3];
-	public int[][] white = new int[3][3];
+	private int[][] red = new int[3][3];
+	private int[][] green = new int[3][3];
+	private int[][] yellow = new int[3][3];
+	private int[][] blue = new int[3][3];
+	private int[][] orange = new int[3][3];
+	private int[][] white = new int[3][3];
+	private HashMap<String, int[][]> sides = new HashMap<String, int[][]>();
+	
 	
 	public Cube(String positions) {
 		red = sideConstructor(red, positions.substring(0, 9));
@@ -31,13 +35,12 @@ public class Cube {
 		orange = sideConstructor(orange, positions.substring(36, 45));
 		white = sideConstructor(white, positions.substring(45, 54));
 		
-		centerCheck(red, 0);
-		centerCheck(green, 1);
-		centerCheck(yellow, 2);
-		centerCheck(blue, 3);
-		centerCheck(orange, 4);
-		centerCheck(white, 5);
-		
+		sides.put("Red", red);
+		sides.put("Green", green);
+		sides.put("Yellow", yellow);
+		sides.put("Blue", blue);
+		sides.put("Orange", orange);
+		sides.put("White", white);
 	}
 	
 	private int[][] sideConstructor(int[][] side, String positions) {
@@ -54,14 +57,7 @@ public class Cube {
 		return side;
 	}
 	
-	private void centerCheck(int[][] side, int color) {
-		if (side[1][1] != color) {
-			System.out.println("false");
-			System.out.println(color);
-			System.out.println(side[1][1]);
-			System.exit(0);
-		}
+	public HashMap<String, int[][]> getSides() {
+		return sides;
 	}
-	
-	
 }

@@ -1,0 +1,181 @@
+package rubik;
+
+import java.util.Arrays;
+import java.util.HashMap;
+
+/*
+ *  Contains the checks to validate a cube's state
+ * Written by Kevin Pietrow
+ *
+ * 
+ * To serve as a reference. 
+ * I'll be converting every character into a number to save space
+ * [R, G, Y, B, O, W]
+ * [0, 1, 2, 3, 4, 5]
+ * 
+ */
+
+
+public class Solver {
+	
+	private int[][] red = new int[3][3];
+	private int[][] green = new int[3][3];
+	private int[][] yellow = new int[3][3];
+	private int[][] blue = new int[3][3];
+	private int[][] orange = new int[3][3];
+	private int[][] white = new int[3][3];
+	private int[][] givenCorners;
+	private int[][] cornerAlignment = {{-1}, {-1}, {-1}, {-1}, {-1}, {-1}, {-1}, {-1}};
+	private int parity = 0;
+	
+	// { G Y R }, { R Y B}, { B Y O }, { O Y G }, { G W O }, { O W B }, { B W R }, { R W G }
+	private int[][] validCorners = {{1, 2, 0}, {0, 2, 3}, {3, 2, 4}, {4, 2, 1}, {1, 5, 4}, {4, 5, 3}, {3, 5, 0}, {0, 5, 1}};
+	
+	private HashMap<String, int[][]> sides = new HashMap<String, int[][]>();
+
+	public Solver(HashMap<String, int[][]> sides) {
+		this.sides = sides;
+		setSides();
+		setCorners();
+	}
+	
+	
+	public void centerCheck() {
+		
+		if (red[1][1] != 0) {
+			System.out.println("false");
+			System.exit(0);
+		} else if (green[1][1] != 1) {
+			System.out.println("false");
+			System.exit(0);
+		} else if (yellow[1][1] != 2) {
+			System.out.println("false");
+			System.exit(0);
+		} else if (blue[1][1] != 3) {
+			System.out.println("false");
+			System.exit(0);
+		} else if (orange[1][1] != 4) {
+			System.out.println("false");
+			System.exit(0);
+		} else if (white[1][1] != 5) {
+			System.out.println("false");
+			System.exit(0);
+		}
+	}
+	
+	
+	// checks for corner parity
+	public void cornerParity() {
+		
+		int[][] corners = {cornerAlignment[0], cornerAlignment[1], cornerAlignment[2], cornerAlignment[3]};
+		int[] corner = null;
+		
+		for (int i = 0; i < corners.length; i++) {
+			corner = corners[i];
+			
+			
+		}
+		
+		
+		
+		
+	}
+	
+	
+	
+	// make sure the corners are valid
+	// record the order
+	public void cornerCheck() {
+		
+		boolean valid = false;
+		int[] corner;
+		int[] temp = {-1, -1, -1};
+		int y = 0;
+		
+		// do the check
+		for (int i = 0; i < givenCorners.length; i++) {
+			valid = false;
+			y = 0;
+			corner = null;
+			
+			corner = givenCorners[i];
+			
+			
+			// find Y or W index (we use this to orient)
+			for (y = 0; y < corner.length; y++) {
+				if (corner[y] == 2 || corner[y] == 5) {
+					break;
+				}
+			}
+			
+			// set according to index
+			if (y == 0) {
+				temp[0] = corner[2];
+				temp[1] = corner[0];
+				temp[2] = corner[1];
+				
+				corner = temp;
+			
+			// not strictly necessary, but here for code clarity and to make the else easier
+			} else if (y == 1) {
+			
+			// set according to index
+			} else if (y == 2) {
+				temp[0] = corner[1];
+				temp[1] = corner[2];
+				temp[2] = corner[0];
+				
+				corner = temp;
+				
+			// no index found. ERROR DETECTED. IT'S A TRAP!
+			} else {
+				System.out.println("false");
+				System.exit(0);
+			}
+			
+			// now, check for valid configuration
+			for (int x = 0; x < validCorners.length; x++) {
+				if (Arrays.equals(corner, validCorners[x])) {
+					valid = true;
+					
+					cornerAlignment[x] = givenCorners[i];
+				}
+			}
+			
+			if (!valid) {
+				System.out.println("false combo");
+				System.exit(0);
+			}	
+		}
+	}
+	
+	
+	
+	
+	// get the side veriables set
+	private void setSides() {
+		// set the sides
+		red = sides.get("Red");
+		green = sides.get("Green");
+		yellow = sides.get("Yellow");
+		blue = sides.get("Blue");
+		orange = sides.get("Orange");
+		white = sides.get("White");
+	}
+	
+	// set the corners!
+	private void setCorners() {
+		
+		int[][] givenCorners = {
+				{green[0][2], yellow[0][0], red[2][0]}, 
+				{red[2][2], yellow[0][2], blue[0][0]}, 
+				{blue[2][0], yellow[2][2], orange[0][2]}, 
+				{orange[0][0], yellow[2][0], green[2][2]}, 
+				{green[2][0], white[0][0], orange[2][0]}, 
+				{orange[2][2] , white[0][2], blue[2][2]}, 
+				{blue[0][2], white[2][2], red[0][2]}, 
+				{red[0][0], white[2][0], green[0][0]}};
+		this.givenCorners = givenCorners;
+		
+	}
+}

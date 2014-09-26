@@ -1,13 +1,12 @@
 package rubik;
 
-
 /*
  * The main class in my Rubik's Cube Solver AI
  * 
  * Written by Kevin Pietrow
  *
  *
- * To serve as a reference. 
+ * To serve as a reference:
  * I'll be converting every character into a number to save space
  * [R, G, Y, B, O, W]
  * [0, 1, 2, 3, 4, 5]
@@ -31,6 +30,11 @@ public class Solvable {
 		
 		Solver solver = new Solver(cube.getSides());
 		solver.centerCheck();
-		solver.simpleCornerCheck();
+		solver.cornerCheck();
+		solver.cornerParity();
+		
+		// Success!!!
+		System.out.println("true");
+
 	}
 }

@@ -11,7 +11,7 @@ package rubik;
  * [R, G, Y, B, O, W]
  * [0, 1, 2, 3, 4, 5]
  * 
- */
+ *
 
 public class Solvable {
 	public static void main(String [ ] args) {
@@ -39,3 +39,5 @@ public class Solvable {
 
 	}
 }
+
+*/

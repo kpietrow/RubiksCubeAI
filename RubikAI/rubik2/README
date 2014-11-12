@@ -1,0 +1,31 @@
+The corner cubie list:
+// { R Y G }, { B Y R }, { O Y B }, { G Y O }, { O W G }, { B W O }, { R W B }, { G W R }
+private int[][] validCorners = {{0, 2, 1}, {3, 2, 0}, {4, 2, 3}, {1, 2, 4}, {4, 5, 1}, {3, 5, 4}, {0, 5, 3}, {1, 5, 0}};
+	
+The edge cubie list: 
+// { R W }, { R B }, { R Y }, { R G }, { G Y }, { G O }, { G W }, { Y B }, { Y O }, { B W }, { B O }, { O W }
+private int[][] validEdges = {{0, 5}, {0, 3}, {0, 2}, {0, 1}, {1, 2}, {1, 4}, {1, 5}, {2, 3}, {2, 4}, {3, 5}, {3, 4}, {4, 5}};
+
+The value of the colors:
+[R, G, Y, B, O, W]
+[0, 1, 2, 3, 4, 5]
+
+	
+It should be noted, that the corner cubies are based around the White and Yellow sides. The orientation of a cubie is determined by where the 
+White or Yellow side falls in each cubie position. For example, if the { B W R } cubie is occupying the position of the { R Y B } cubie, and the 
+order of the { B W R } cubie is { W B R }, then that cubie will have an orientation of 1.
+
+For the edges, it is based on the same general idea, with the rule being that the first cubie should have the lower value. For example, if the { Y B } 
+cubie is occupying the spot of the { R W } cubie with an order of { B Y }, then that cubie's orientation is 1.
+
+
+The structure of the corner cubie BitSets:
+	4 2 1 | 2 1
+The first three bits denote which cubie in the global list of corner cubies it is. The second two bits denote the orientation (or lack thereof if none 
+are flippled). 
+
+The structure of the edge cubie BitSets:
+	8 4 2 1 | 1
+The first four bits denote which cubie in the global list of corner cubies it is. The second bit denotes the orientation.
+
+The BitSet of the state of the cube is ordered with the ordered list of the 8 corner cubies, followed by the ordered list of the 12 edge cubies.

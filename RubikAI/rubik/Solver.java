@@ -37,8 +37,9 @@ public class Solver {
 	// { G Y R }, { R Y B}, { B Y O }, { O Y G }, { G W O }, { O W B }, { B W R }, { R W G }
 	private int[][] validCorners = {{1, 2, 0}, {0, 2, 3}, {3, 2, 4}, {4, 2, 1}, {1, 5, 4}, {4, 5, 3}, {3, 5, 0}, {0, 5, 1}};
 	
+	// { R W }, { R B }, { R Y }, { R G }, { G Y }, { G O }, { G W }, { Y B }, { Y O }, { B W }, { B O }, { O W }
+	private int[][] validEdges = {{0, 5}, {0, 3}, {0, 2}, {0, 1}, {1, 2}, {1, 4}, {1, 5}, {2, 3}, {2, 4}, {3, 5}, {3, 4}, {4, 5}};
 	
-	private int[][] validEdges = {{1, 4}, {1, 5}, {0, 1}, {0, 5}, {0, 3}, {3, 5}, {3, 4}, {4, 5}, {2, 4}, {1, 2}, {0, 2}, {2, 3}};
 	private int[][] givenEdgesGivenOrder;
 	private int[][] givenEdgesCorrectOrder = {{-1}, {-1}, {-1}, {-1}, {-1}, {-1}, {-1}, {-1}, {-1}, {-1}, {-1}, {-1}};
 	private int[] givenEdgesPositions= {-1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1};

@@ -477,4 +477,138 @@ public class CubeManipulator {
 		state[13] = temp;
 		return state;
 	}
+	
+	public BitSet[] rotateYellow90DegreesRight(BitSet[] state) {
+		// Stores { B Y R }
+		// Do the corners, make sure to adjust orientations
+		BitSet temp = state[1];
+		
+		state[1] = state[0];
+		state[0] = state[3];
+		state[3] = state[2];
+		state[2] = temp;
+		
+		// Do the edges
+		temp = state[10];
+		state[10] = state[12];
+		state[12] = state[16];
+		state[12].flip(4);
+		state[16] = state[15];
+		state[15] = temp;
+		state[15].flip(4);
+		
+		return state;
+	}
+	
+	public BitSet[] rotateYellow180DegreesRight(BitSet[] state) {
+		// Stores { B Y R }
+		// Do the corners, make sure to adjust orientations
+		BitSet temp = state[1];
+		
+		state[1] = state[3];
+		state[3] = temp;
+		temp = state[2];
+		state[2] = state[0];
+		state[0] = temp;
+		
+		// Do the edges
+		temp = state[10];
+		state[10] = state[16];
+		state[10].flip(4);
+		state[16] = temp;
+		state[16].flip(4);
+		
+		state[15] = temp;
+		state[15] = state[12];
+		state[15].flip(4);
+		state[12] = temp;
+		state[12].flip(4);
+		
+		return state;
+	}
+	
+	public BitSet[] rotateYellow270DegreesRight(BitSet[] state) {
+		// Stores { B Y R }
+		// Do the corners, make sure to adjust orientations
+		BitSet temp = state[1];
+		
+		state[1] = state[2];
+		state[2] = state[3];
+		state[3] = state[0];
+		state[0] = temp;
+		
+		// Do the edges
+		temp = state[10];
+		state[10] = state[15];
+		state[10].flip(4);
+		state[15] = state[16];
+		state[16] = state[12];
+		state[16].flip(4);
+		state[12] = temp;
+		
+		return state;
+	}
+	
+	public BitSet[] rotateWhite90DegreesRight(BitSet[] state) {
+		// Stores { G W R }
+		// Do the corners, make sure to adjust orientations
+		BitSet temp = state[7];
+		
+		state[7] = state[6];
+		state[6] = state[5];
+		state[5] = state[4];
+		state[4] = temp;
+		
+		// Do the edges
+		temp = state[8];
+		state[8] = state[17];
+		state[17] = state[19];
+		state[19] = state[14];
+		state[14] = temp;
+		
+		return state;
+	}
+	
+	public BitSet[] rotateWhite180DegreesRight(BitSet[] state) {
+		// Stores { G W R }
+		// Do the corners, make sure to adjust orientations
+		BitSet temp = state[7];
+		
+		state[7] = state[5];
+		state[5] = temp;
+		temp = state[6];
+		state[6] = state[4];
+		state[4] = temp;
+		
+		// Do the edges
+		temp = state[8];
+		state[8] = state[19];
+		state[19] = temp;
+		
+		temp = state[14];
+		state[14] = state[17];
+		state[17] = temp;
+		
+		return state;
+	}
+	
+	public BitSet[] rotateWhite270DegreesRight(BitSet[] state) {
+		// Stores { G W R }
+		// Do the corners, make sure to adjust orientations
+		BitSet temp = state[7];
+		
+		state[7] = state[4];
+		state[4] = state[5];
+		state[5] = state[6];
+		state[6] = temp;
+		
+		// Do the edges
+		temp = state[8];
+		state[8] = state[14];
+		state[14] = state[19];
+		state[19] = state[17];
+		state[17] = temp;
+		
+		return state;
+	}
 }

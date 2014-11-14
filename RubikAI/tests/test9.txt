@@ -1,15 +1,15 @@
-    000
-    000
-    000
+    RRR
+    RRR
+    RRR
 
-111 222 333
-111 222 333
-111 222 333
+GGG YYY BBB
+GGG YYY BBB
+GGG YYY BBB
 
-    444
-    444
-    444
+    OOO
+    OOO
+    OOO
 
-    555
-    555
-    555
+    WWW
+    WWW
+    WWW

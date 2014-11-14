@@ -29,7 +29,7 @@ public class Rubik {
 		// Check the cube's parity
 		parityChecker.checkParities(cube.state);
 		
-		cubeManipulator.rotateRed90Degrees(cube.state);
+		cubeManipulator.rotateRed90DegreesRight(cube.state);
 		cube.print();
 		
 		

@@ -190,7 +190,7 @@ public class CubeManipulator {
 		}
 	}
 	
-	public BitSet[] rotateRed90Degrees(BitSet[] state) {
+	public BitSet[] rotateRed90DegreesRight(BitSet[] state) {
 		// Stores { B Y R }
 		// Do the corners, make sure to adjust orientations
 		BitSet temp = state[0];
@@ -213,7 +213,7 @@ public class CubeManipulator {
 		return state;
 	}
 	
-	public BitSet[] rotateRed180Degrees(BitSet[] state) {
+	public BitSet[] rotateRed180DegreesRight(BitSet[] state) {
 		// Stores { B Y R }
 		// Do the corners, make sure to adjust orientations
 		BitSet temp = state[0];
@@ -234,7 +234,7 @@ public class CubeManipulator {
 		return state;
 	}
 	
-	public BitSet[] rotateRed270Degrees(BitSet[] state) {
+	public BitSet[] rotateRed270DegreesRight(BitSet[] state) {
 		// Stores { B Y R }
 		// Do the corners, make sure to adjust orientations
 		BitSet temp = state[0];
@@ -242,11 +242,11 @@ public class CubeManipulator {
 		state[0] = state[7];
 		decrementCornerOrientation(state[0]);
 		state[7] = state[6];
-		incrementCornerOrientation(state[1]);
+		incrementCornerOrientation(state[7]);
 		state[6] = state[1];
 		decrementCornerOrientation(state[6]);
 		state[1] = temp;
-		incrementCornerOrientation(state[7]);
+		incrementCornerOrientation(state[1]);
 		
 		// Do the edges
 		temp = state[10];
@@ -257,19 +257,19 @@ public class CubeManipulator {
 		return state;
 	}
 	
-	public BitSet[] rotateGreen90Degrees(BitSet[] state) {
+	public BitSet[] rotateGreen90DegreesRight(BitSet[] state) {
 		// Stores { G Y O }
 		// Do the corners, make sure to adjust orientations
 		BitSet temp = state[3];
 		
 		state[3] = state[0];
-		decrementCornerOrientation(state[0]);
+		decrementCornerOrientation(state[3]);
 		state[0] = state[7];
-		incrementCornerOrientation(state[1]);
+		incrementCornerOrientation(state[0]);
 		state[6] = state[4];
 		decrementCornerOrientation(state[6]);
 		state[4] = temp;
-		incrementCornerOrientation(state[7]);
+		incrementCornerOrientation(state[4]);
 		
 		// Do the edges
 		temp = state[12];
@@ -282,7 +282,7 @@ public class CubeManipulator {
 		return state;
 	}
 	
-	public BitSet[] rotateGreen180Degrees(BitSet[] state) {
+	public BitSet[] rotateGreen180DegreesRight(BitSet[] state) {
 		// Stores { G Y O }
 		// Do the corners, make sure to adjust orientations
 		BitSet temp = state[3];
@@ -305,19 +305,19 @@ public class CubeManipulator {
 		return state;
 	}
 	
-	public BitSet[] rotateGreen270Degrees(BitSet[] state) {
+	public BitSet[] rotateGreen270DegreesRight(BitSet[] state) {
 		// Stores { G Y O }
 		// Do the corners, make sure to adjust orientations
 		BitSet temp = state[3];
 		
 		state[3] = state[4];
-		decrementCornerOrientation(state[0]);
+		decrementCornerOrientation(state[3]);
 		state[4] = state[7];
-		incrementCornerOrientation(state[1]);
+		incrementCornerOrientation(state[4]);
 		state[7] = state[0];
-		decrementCornerOrientation(state[6]);
+		decrementCornerOrientation(state[7]);
 		state[0] = temp;
-		incrementCornerOrientation(state[7]);
+		incrementCornerOrientation(state[0]);
 		
 		// Do the edges
 		temp = state[12];
@@ -330,19 +330,19 @@ public class CubeManipulator {
 		return state;
 	}
 	
-	public BitSet[] rotateBlue90Degrees(BitSet[] state) {
+	public BitSet[] rotateBlue90DegreesRight(BitSet[] state) {
 		// Stores { B Y R }
 		// Do the corners, make sure to adjust orientations
 		BitSet temp = state[1];
 		
 		state[1] = state[2];
-		decrementCornerOrientation(state[0]);
+		decrementCornerOrientation(state[1]);
 		state[2] = state[5];
-		incrementCornerOrientation(state[1]);
+		incrementCornerOrientation(state[2]);
 		state[5] = state[6];
-		decrementCornerOrientation(state[6]);
+		decrementCornerOrientation(state[5]);
 		state[6] = temp;
-		incrementCornerOrientation(state[7]);
+		incrementCornerOrientation(state[6]);
 		
 		// Do the edges
 		temp = state[15];
@@ -355,28 +355,126 @@ public class CubeManipulator {
 		return state;
 	}
 	
-	public BitSet[] rotateBlue180Degrees(BitSet[] state) {
+	public BitSet[] rotateBlue180DegreesRight(BitSet[] state) {
 		// Stores { B Y R }
 		// Do the corners, make sure to adjust orientations
 		BitSet temp = state[1];
 		
-		state[1] = state[2];
-		decrementCornerOrientation(state[0]);
-		state[2] = state[5];
-		incrementCornerOrientation(state[1]);
-		state[5] = state[6];
-		decrementCornerOrientation(state[6]);
+		state[1] = state[5];
+		state[5] = temp;
+		temp = state[2];
+		state[2] = state[6];
 		state[6] = temp;
-		incrementCornerOrientation(state[7]);
 		
 		// Do the edges
 		temp = state[15];
-		state[15] = state[18];
+		state[15] = state[17];
 		state[15].flip(4);
-		state[18] = state[17];
-		state[17] = state[9];
-		state[17].flip(4);
 		state[17] = temp;
+		state[17].flip(4);
+		temp = state[9];
+		state[9] = state[18];
+		state[9].flip(4);
+		state[18] = temp;
+		state[18].flip(4);
+		return state;
+	}
+	
+	public BitSet[] rotateBlue270DegreesRight(BitSet[] state) {
+		// Stores { B Y R }
+		// Do the corners, make sure to adjust orientations
+		BitSet temp = state[1];
+		
+		state[1] = state[6];
+		decrementCornerOrientation(state[1]);
+		state[6] = state[5];
+		incrementCornerOrientation(state[6]);
+		state[5] = state[2];
+		decrementCornerOrientation(state[5]);
+		state[2] = temp;
+		incrementCornerOrientation(state[2]);
+		
+		// Do the edges
+		temp = state[15];
+		state[15] = state[9];
+		state[9] = state[17];
+		state[9].flip(4);
+		state[17] = state[18];
+		state[18] = temp;
+		state[18].flip(4);
+		return state;
+	}
+	
+	public BitSet[] rotateOrange90DegreesRight(BitSet[] state) {
+		// Stores { O Y B }
+		// Do the corners, make sure to adjust orientations
+		BitSet temp = state[2];
+		
+		state[2] = state[3];
+		decrementCornerOrientation(state[2]);
+		state[3] = state[4];
+		incrementCornerOrientation(state[3]);
+		state[4] = state[5];
+		decrementCornerOrientation(state[4]);
+		state[5] = temp;
+		incrementCornerOrientation(state[5]);
+		
+		// Do the edges
+		temp = state[16];
+		state[16] = state[13];
+		state[13] = state[19];
+		state[13].flip(4);
+		state[19] = state[18];
+		state[19].flip(4);
+		state[18] = temp;
+		return state;
+	}
+	
+	public BitSet[] rotateOrange180DegreesRight(BitSet[] state) {
+		// Stores { O Y B }
+		// Do the corners, make sure to adjust orientations
+		BitSet temp = state[2];
+		
+		state[2] = state[4];
+		state[4] = temp;
+		temp = state[3];
+		state[3] = state[5];
+		state[5] = temp;
+		
+		// Do the edges
+		temp = state[16];
+		state[16] = state[19];
+		state[16].flip(4);
+		state[19] = temp;
+		state[19].flip(4);
+		temp = state[13];
+		state[13] = state[18];
+		state[18] = temp;
+		return state;
+	}
+	
+	public BitSet[] rotateOrange270DegreesRight(BitSet[] state) {
+		// Stores { O Y B }
+		// Do the corners, make sure to adjust orientations
+		BitSet temp = state[2];
+		
+		state[2] = state[5];
+		decrementCornerOrientation(state[2]);
+		state[5] = state[4];
+		incrementCornerOrientation(state[5]);
+		state[4] = state[3];
+		decrementCornerOrientation(state[4]);
+		state[3] = temp;
+		incrementCornerOrientation(state[3]);
+		
+		// Do the edges
+		temp = state[16];
+		state[16] = state[18];
+		state[18] = state[19];
+		state[18].flip(4);
+		state[19] = state[13];
+		state[19].flip(4);
+		state[13] = temp;
 		return state;
 	}
 }

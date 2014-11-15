@@ -32,6 +32,7 @@ public class CubeManipulator {
 		state[6] = constructCorner(cubeinfo.substring(2, 3), cubeinfo.substring(53, 54), cubeinfo.substring(17, 18));
 		state[7] = constructCorner(cubeinfo.substring(9, 10), cubeinfo.substring(51, 52), cubeinfo.substring(0, 1));
 
+		System.out.println("------------------------");
 		// Construct edges
 		state[8] = constructEdge(cubeinfo.substring(1, 2), cubeinfo.substring(52, 53));
 		state[9] = constructEdge(cubeinfo.substring(5, 6), cubeinfo.substring(16, 17));
@@ -140,6 +141,7 @@ public class CubeManipulator {
 		
 		for (int i = 0; i < validEdges.length; i++) {
 			if (Arrays.equals(sorted, validEdges[i])) {
+				System.out.println(i);
 				edge = edgeIntToBits(edge, i);
 			}
 		}
@@ -190,6 +192,75 @@ public class CubeManipulator {
 		}
 	}
 	
+	private int getValueOfCorner(BitSet corner) {
+		int value = 0;
+		
+		if (corner.get(0)) {
+			value = value + 4;
+		}
+		
+		if (corner.get(1)) {
+			value = value + 2;
+		}
+		
+		if (corner.get(2)) {
+			value = value + 1;
+		}
+		
+		return value;
+	}
+	
+	private int getValueOfEdge(BitSet edge) {
+		int value = 0;
+		
+		if (edge.get(0)) {
+			value = value + 8;
+		}
+		
+		if (edge.get(1)) {
+			value = value + 4;
+		}
+		
+		if (edge.get(2)) {
+			value = value + 2;
+		}
+		
+		if (edge.get(3)) {
+			value = value + 1;
+		}
+		
+		return value + 8;
+	}
+	
+	public void print(BitSet[] state) {
+		System.out.println(state[0].toString() + " - " + getValueOfCorner(state[0]));
+		System.out.println(state[1].toString() + " - " + getValueOfCorner(state[1]));
+		System.out.println(state[2].toString() + " - " + getValueOfCorner(state[2]));
+		System.out.println(state[3].toString() + " - " + getValueOfCorner(state[3]));
+		System.out.println(state[4].toString() + " - " + getValueOfCorner(state[4]));
+		System.out.println(state[5].toString() + " - " + getValueOfCorner(state[5]));
+		System.out.println(state[6].toString() + " - " + getValueOfCorner(state[6]));
+		System.out.println(state[7].toString() + " - " + getValueOfCorner(state[7]));
+		
+		System.out.println("-------------");
+		
+		System.out.println(state[8].toString() + " - " + getValueOfEdge(state[8]));
+		System.out.println(state[9].toString() + " - " + getValueOfEdge(state[9]));
+		System.out.println(state[10].toString() + " - " + getValueOfEdge(state[10]));
+		System.out.println(state[11].toString() + " - " + getValueOfEdge(state[11]));
+		System.out.println(state[12].toString() + " - " + getValueOfEdge(state[12]));
+		System.out.println(state[13].toString() + " - " + getValueOfEdge(state[13]));
+		System.out.println(state[14].toString() + " - " + getValueOfEdge(state[14]));
+		System.out.println(state[15].toString() + " - " + getValueOfEdge(state[15]));
+		System.out.println(state[16].toString() + " - " + getValueOfEdge(state[16]));
+		System.out.println(state[17].toString() + " - " + getValueOfEdge(state[17]));
+		System.out.println(state[18].toString() + " - " + getValueOfEdge(state[18]));
+		System.out.println(state[19].toString() + " - " + getValueOfEdge(state[19]));
+		System.out.println("\n\n");
+
+	}
+	
+	
 	public BitSet[] rotateRed90DegreesRight(BitSet[] state) {
 		// Stores { B Y R }
 		// Do the corners, make sure to adjust orientations
@@ -220,7 +291,7 @@ public class CubeManipulator {
 		
 		state[0] = state[6];
 		state[6] = temp;
-		temp = state[7];
+		temp = state[1];
 		state[1] = state[7];
 		state[7] = temp;
 		
@@ -266,7 +337,7 @@ public class CubeManipulator {
 		decrementCornerOrientation(state[3]);
 		state[0] = state[7];
 		incrementCornerOrientation(state[0]);
-		state[6] = state[4];
+		state[7] = state[4];
 		decrementCornerOrientation(state[6]);
 		state[4] = temp;
 		incrementCornerOrientation(state[4]);
@@ -274,11 +345,11 @@ public class CubeManipulator {
 		// Do the edges
 		temp = state[12];
 		state[12] = state[11];
-		state[11].flip(4);
+		state[12].flip(4);
 		state[11] = state[14];
 		state[11].flip(4);
 		state[14] = state[13];
-		state[11] = temp;
+		state[13] = temp;
 		return state;
 	}
 	
@@ -351,7 +422,7 @@ public class CubeManipulator {
 		state[18] = state[17];
 		state[17] = state[9];
 		state[17].flip(4);
-		state[17] = temp;
+		state[9] = temp;
 		return state;
 	}
 	
@@ -362,6 +433,7 @@ public class CubeManipulator {
 		
 		state[1] = state[5];
 		state[5] = temp;
+		
 		temp = state[2];
 		state[2] = state[6];
 		state[6] = temp;
@@ -518,7 +590,7 @@ public class CubeManipulator {
 		state[16] = temp;
 		state[16].flip(4);
 		
-		state[15] = temp;
+		temp = state[15];
 		state[15] = state[12];
 		state[15].flip(4);
 		state[12] = temp;

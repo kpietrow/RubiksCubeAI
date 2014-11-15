@@ -24,13 +24,13 @@ public class Rubik {
 		
 		// Construct the cube's state
 		cube.state = cubeManipulator.constructCube(input);
-		cube.print();
+		cubeManipulator.print(cube.state);
 		
 		// Check the cube's parity
 		parityChecker.checkParities(cube.state);
 		
-		cubeManipulator.rotateRed90DegreesRight(cube.state);
-		cube.print();
+		cube.state = cubeManipulator.rotateGreen180DegreesRight(cube.state);
+		cubeManipulator.print(cube.state);
 		
 		
 		

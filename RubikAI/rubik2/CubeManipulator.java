@@ -8,8 +8,8 @@ public class CubeManipulator {
 	// { R Y G }, { B Y R }, { O Y B }, { G Y O }, { O W G }, { B W O }, { R W B }, { G W R }
 	private int[][] validCorners = {{0, 2, 1}, {3, 2, 0}, {4, 2, 3}, {1, 2, 4}, {4, 5, 1}, {3, 5, 4}, {0, 5, 3}, {1, 5, 0}};
 		
-	// { R W }, { R B }, { R Y }, { R G }, { G Y }, { G O }, { G W }, { Y B }, { Y O }, { B W }, { B O }, { O W }
-	private int[][] validEdges = {{0, 5}, {0, 3}, {0, 2}, {0, 1}, {1, 2}, {1, 4}, {1, 5}, {2, 3}, {2, 4}, {3, 5}, {3, 4}, {4, 5}};
+	// { R W }, { R B }, { R Y }, { R G }, { G Y }, { G O }, { G W }, { B Y }, { O Y }, { B W }, { B O }, { O W }
+	private int[][] validEdges = {{0, 5}, {0, 3}, {0, 2}, {0, 1}, {1, 2}, {1, 4}, {1, 5}, {3, 2}, {4, 2}, {3, 5}, {3, 4}, {4, 5}};
 		
 	/* Constructs the cube.
 	* This process has the luxury of being able to be a bit costly, as it will only
@@ -41,8 +41,8 @@ public class CubeManipulator {
 		state[12] = constructEdge(cubeinfo.substring(20, 21), cubeinfo.substring(21, 22));
 		state[13] = constructEdge(cubeinfo.substring(28, 29), cubeinfo.substring(39, 40));
 		state[14] = constructEdge(cubeinfo.substring(18, 19), cubeinfo.substring(48, 49));
-		state[15] = constructEdge(cubeinfo.substring(23, 24), cubeinfo.substring(24, 25));
-		state[16] = constructEdge(cubeinfo.substring(31, 32), cubeinfo.substring(37, 38));
+		state[15] = constructEdge(cubeinfo.substring(24, 25), cubeinfo.substring(23, 24));
+		state[16] = constructEdge(cubeinfo.substring(37, 38), cubeinfo.substring(31, 32));
 		state[17] = constructEdge(cubeinfo.substring(26, 27), cubeinfo.substring(50, 51));
 		state[18] = constructEdge(cubeinfo.substring(34, 35), cubeinfo.substring(41, 42));
 		state[19] = constructEdge(cubeinfo.substring(43, 44), cubeinfo.substring(46, 47));
@@ -130,7 +130,18 @@ public class CubeManipulator {
 		int[] sorted = new int[2];
 		
 		// finds orientation, and sets if necessary
-		if (Integer.parseInt(side1) > Integer.parseInt(side2)) {
+		// Makes sure White and Yellow are always in the 2nd position
+		if (Integer.parseInt(side1) == 2 || Integer.parseInt(side1) == 5) {
+			edge.set(4);
+			sorted[0] = Integer.parseInt(side2);
+			sorted[1] = Integer.parseInt(side1);
+		} else if (Integer.parseInt(side2) == 2 || Integer.parseInt(side2) == 5) {
+			sorted[0] = Integer.parseInt(side1);
+			sorted[1] = Integer.parseInt(side2);		
+		}	
+			
+		// Otherwise, they should all have the larger side on the right
+		else if (Integer.parseInt(side1) > Integer.parseInt(side2)) {
 			edge.set(4);
 			sorted[0] = Integer.parseInt(side2);
 			sorted[1] = Integer.parseInt(side1);
@@ -418,11 +429,11 @@ public class CubeManipulator {
 		// Do the edges
 		temp = state[15];
 		state[15] = state[18];
-		state[15].flip(4);
 		state[18] = state[17];
 		state[17] = state[9];
 		state[17].flip(4);
 		state[9] = temp;
+		state[9].flip(4);
 		return state;
 	}
 	
@@ -441,9 +452,8 @@ public class CubeManipulator {
 		// Do the edges
 		temp = state[15];
 		state[15] = state[17];
-		state[15].flip(4);
 		state[17] = temp;
-		state[17].flip(4);
+		
 		temp = state[9];
 		state[9] = state[18];
 		state[9].flip(4);
@@ -469,11 +479,11 @@ public class CubeManipulator {
 		// Do the edges
 		temp = state[15];
 		state[15] = state[9];
+		state[15].flip(4);
 		state[9] = state[17];
 		state[9].flip(4);
 		state[17] = state[18];
 		state[18] = temp;
-		state[18].flip(4);
 		return state;
 	}
 	
@@ -494,11 +504,13 @@ public class CubeManipulator {
 		// Do the edges
 		temp = state[16];
 		state[16] = state[13];
+		state[16].flip(4);
 		state[13] = state[19];
 		state[13].flip(4);
 		state[19] = state[18];
 		state[19].flip(4);
 		state[18] = temp;
+		state[18].flip(4);
 		return state;
 	}
 	
@@ -516,9 +528,8 @@ public class CubeManipulator {
 		// Do the edges
 		temp = state[16];
 		state[16] = state[19];
-		state[16].flip(4);
 		state[19] = temp;
-		state[19].flip(4);
+		
 		temp = state[13];
 		state[13] = state[18];
 		state[18] = temp;
@@ -542,11 +553,13 @@ public class CubeManipulator {
 		// Do the edges
 		temp = state[16];
 		state[16] = state[18];
+		state[16].flip(4);
 		state[18] = state[19];
 		state[18].flip(4);
 		state[19] = state[13];
 		state[19].flip(4);
 		state[13] = temp;
+		state[13].flip(4);
 		return state;
 	}
 	
@@ -564,10 +577,8 @@ public class CubeManipulator {
 		temp = state[10];
 		state[10] = state[12];
 		state[12] = state[16];
-		state[12].flip(4);
 		state[16] = state[15];
 		state[15] = temp;
-		state[15].flip(4);
 		
 		return state;
 	}
@@ -586,15 +597,11 @@ public class CubeManipulator {
 		// Do the edges
 		temp = state[10];
 		state[10] = state[16];
-		state[10].flip(4);
 		state[16] = temp;
-		state[16].flip(4);
 		
 		temp = state[15];
 		state[15] = state[12];
-		state[15].flip(4);
 		state[12] = temp;
-		state[12].flip(4);
 		
 		return state;
 	}
@@ -612,10 +619,8 @@ public class CubeManipulator {
 		// Do the edges
 		temp = state[10];
 		state[10] = state[15];
-		state[10].flip(4);
 		state[15] = state[16];
 		state[16] = state[12];
-		state[16].flip(4);
 		state[12] = temp;
 		
 		return state;

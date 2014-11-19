@@ -32,7 +32,7 @@ public class CubeManipulator {
 		state[6] = constructCorner(cubeinfo.substring(2, 3), cubeinfo.substring(53, 54), cubeinfo.substring(17, 18));
 		state[7] = constructCorner(cubeinfo.substring(9, 10), cubeinfo.substring(51, 52), cubeinfo.substring(0, 1));
 
-		System.out.println("------------------------");
+		//System.out.println("------------------------");
 		// Construct edges
 		state[8] = constructEdge(cubeinfo.substring(1, 2), cubeinfo.substring(52, 53));
 		state[9] = constructEdge(cubeinfo.substring(5, 6), cubeinfo.substring(16, 17));
@@ -54,6 +54,7 @@ public class CubeManipulator {
 	private BitSet constructCorner(String side1, String side2, String side3) {
 		BitSet corner = new BitSet(5);
 		int[] sorted = new int[3];
+		boolean valid = false;
 		
 		// Finds, and sets the orientation in the bitset
 		// Creates the sorted corner for the validCorners search
@@ -77,9 +78,14 @@ public class CubeManipulator {
 		for (int i = 0; i < validCorners.length; i++) {
 			if (Arrays.equals(validCorners[i], sorted)) {
 				// when found, calculate state using that corner
-				System.out.println(i);
 				corner = cornerIntToBits(corner, i);
+				valid = true;
+				break;
 			}
+		}
+		if (!valid) {
+			System.out.println("false");
+			System.exit(0);
 		}
 		
 		return corner;
@@ -152,7 +158,6 @@ public class CubeManipulator {
 		
 		for (int i = 0; i < validEdges.length; i++) {
 			if (Arrays.equals(sorted, validEdges[i])) {
-				System.out.println(i);
 				edge = edgeIntToBits(edge, i);
 			}
 		}

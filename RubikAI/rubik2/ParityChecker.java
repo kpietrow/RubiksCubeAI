@@ -1,6 +1,5 @@
 package rubik2;
 
-import java.util.Arrays;
 import java.util.BitSet;
 
 public class ParityChecker {
@@ -15,6 +14,7 @@ public class ParityChecker {
 	public void checkParities(BitSet[] state) {
 		permutationParityCheck(state);
 		cornerParityCheck(state);
+		edgeParityCheck(state);
 	}
 	
 	// Checks for the permutation parity
@@ -134,7 +134,7 @@ public class ParityChecker {
 	}
 	
 	// Checks the parity of edges. Blue is the front face, with yellow on top and white on the bottom.
-	private void checkEdgeParity(BitSet[] state) {
+	private void edgeParityCheck(BitSet[] state) {
 		
 		// Rule #1: (Top & Bot) Any edge containing white or yellow stickers facing up or down is good
 		// Rule #2: (Top & Bot) Any edge containing white or yellow on the side faces is bad
@@ -149,9 +149,9 @@ public class ParityChecker {
 			
 			// Checks to see if it could be a valid edge
 			for (int x = 0; x < topOrBotEdges.length; x++) {
+				
 				// Invalid edge. White or yellow on the side
 				if (getValueOfEdge(state[topOrBotEdges[i]]) == topOrBotEdges[x] && state[topOrBotEdges[i]].get(4)) {
-					whiteOrYellow = true;
 					valid = false;
 					break;
 				// Valid edge. White or yellow on top
@@ -173,26 +173,118 @@ public class ParityChecker {
 			// Rule #3 (Top & Bot): For edges without white or yellow. Any edge is bad if it has blue or green
 			// facing the sides. Any edge is good if it has red or orange facing the sides.
 			} else {
-				for (int x = 0; x < nonWhiteOrYellowEdges.length; x++) {
-					// If the side edge has blue or green facing the sides
-					if (getValueOfEdge(state[topOrBotEdges[i]]) == nonWhiteOrYellowEdges[x] && !state[nonWhiteOrYellowEdges[x]].get(4)) {
-						valid = false;
-					}
-					
-					// Else it's good
-				}
+				// If the side edge has blue or green facing the sides
 				
+				// { R B }
+				if (getValueOfEdge(state[topOrBotEdges[i]]) ==  9 && state[topOrBotEdges[i]].get(4)) {
+					valid = false;
+					
+				// { R G }
+				} else if (getValueOfEdge(state[topOrBotEdges[i]]) ==  11 && state[topOrBotEdges[i]].get(4)) {
+					valid = false;
+					
+				// { G O }
+				} else if (getValueOfEdge(state[topOrBotEdges[i]]) ==  13 && !state[topOrBotEdges[i]].get(4)) {
+					valid = false;
+				
+				// { B O }
+				} else if (getValueOfEdge(state[topOrBotEdges[i]]) ==  18 && !state[topOrBotEdges[i]].get(4)) {
+					valid = false;
+				}
+			
 				if (!valid) {
 					parityCount++;
 					valid = true;
-				} 
+				}
+				
 				
 			}
 		}
 		
-		// Rule #4 (Middle Layer):
+		
+		// Rule #4 (Middle Layer): Any edge that has white or yellow facing front or back is good. Any 
+		// edge that has white or yellow facing right or left is bad
+		
+		for (int i = 0; i < topOrBotEdges.length; i++) { 
+			// Tests edge { B O }
+			if (getValueOfEdge(state[18]) == topOrBotEdges[i] && !state[18].get(4)) {
+				parityCount++;
+			}
+			
+			// Tests edge { G O }
+			else if (getValueOfEdge(state[13]) == topOrBotEdges[i] && !state[13].get(4)) {
+				parityCount++;
+			}
+			
+			// Tests edge { R B }
+			else if (getValueOfEdge(state[9]) == topOrBotEdges[i] && state[9].get(4)) {
+				parityCount++;
+			}
+			
+			// Tests edge { R G }
+			else if (getValueOfEdge(state[11]) == topOrBotEdges[i] && state[11].get(4)) {
+				parityCount++;
+			}
+			
+			
+		}
 		
 		
+		// Rule 5 (Middle Layer): For edges that don't contain white or yellow. Any edge that has
+		// Blue or Green facing front or back is good. Any edge that has blue or green facing left or right 
+		// is bad.
+		
+		// {9, 11, 13, 18}
+		
+		// Edge { B O }
+		if (getValueOfEdge(state[18]) == 18 && state[18].get(4)) {
+			parityCount++;
+		} else if (getValueOfEdge(state[18]) == 9 && !state[18].get(4)) {
+			parityCount++;
+		} else if (getValueOfEdge(state[18]) == 11 && !state[18].get(4)) {
+			parityCount++;
+		} else if(getValueOfEdge(state[18]) == 13 && state[18].get(4)) {
+			parityCount++;
+		}
+		
+		// Edge { R B }
+		if (getValueOfEdge(state[9]) == 9 && state[9].get(4)) {
+			parityCount++;
+		} else if (getValueOfEdge(state[9]) == 18 && !state[9].get(4)) {
+			parityCount++;
+		} else if (getValueOfEdge(state[9]) == 11 && state[9].get(4)) {
+			parityCount++;
+		} else if(getValueOfEdge(state[9]) == 13 && !state[9].get(4)) {
+			parityCount++;
+		}
+		
+		// Edge { R G }
+		if (getValueOfEdge(state[11]) == 11 && state[11].get(4)) {
+			parityCount++;
+		} else if (getValueOfEdge(state[11]) == 9 && state[11].get(4)) {
+			parityCount++;
+		} else if (getValueOfEdge(state[11]) == 18 && !state[11].get(4)) {
+			parityCount++;
+		} else if(getValueOfEdge(state[11]) == 13 && !state[11].get(4)) {
+			parityCount++;
+		}
+		
+		// Edge { G O }
+		if (getValueOfEdge(state[13]) == 13 && state[13].get(4)) {
+			parityCount++;
+		} else if (getValueOfEdge(state[13]) == 9 && !state[13].get(4)) {
+			parityCount++;
+		} else if (getValueOfEdge(state[13]) == 11 && !state[13].get(4)) {
+			parityCount++;
+		} else if(getValueOfEdge(state[13]) == 18 && state[13].get(4)) {
+			parityCount++;
+		}
+		
+		
+		if (parityCount % 2 != 0) {
+			System.out.println("false");
+			System.exit(0);
+		}
 		
 	}
 

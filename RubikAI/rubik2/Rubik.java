@@ -1,6 +1,9 @@
 package rubik2;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
 
 public class Rubik {
 	public static void main(String [ ] args) {
@@ -24,14 +27,21 @@ public class Rubik {
 		
 		// Construct the cube's state
 		cube.state = cubeManipulator.constructCube(input);
-		//cubeManipulator.print(cube.state);
 		
 		// Check the cube's parity
 		parityChecker.checkParities(cube.state);
 		
-		System.out.println("true");
+		//cubeManipulator.print(cube.state);
+		//cubeManipulator.print(cubeManipulator.goalState);
+		
+		//System.out.println(Arrays.equals(cube.state, cubeManipulator.goalState));
 		
 		
 		
+	}
+	
+	private static int test (int tester) {
+		tester = 2;
+		return tester;
 	}
 }

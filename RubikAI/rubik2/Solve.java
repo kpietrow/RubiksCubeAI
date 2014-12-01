@@ -26,21 +26,23 @@ public class Solve {
 		// Construct the cube's state
 		cube.state = cubeManipulator.constructCube(input);
 		
-		String result = idaSearch(cube.state, cubeManipulator);
+		String result = idsSearch(cube.state, cubeManipulator);
 		System.out.println(result);
 		
 	}
 	// goal state: [{}, {2}, {1}, {1, 2}, {0}, {0, 2}, {0, 1}, {0, 1, 2}, {}, {3}, {2}, {2, 3}, {1}, {1, 3}, {1, 2}, {1, 2, 3}, {0}, {0, 3}, {0, 2}, {0, 2, 3}]
 	// ^ In case I need it
 
-	// (initial state, cube manipulator)
-	private static String idaSearch(BitSet[] state, CubeManipulator cm) {
+	/*
+	 * This is the root of the Iterative Deepening Search. This loops through a stated depth (11, as that is the max number of moves required),
+	 * searching for the goal state.
+	 */
+	private static String idsSearch(BitSet[] state, CubeManipulator cm) {
 		
 		CubeNode first = new CubeNode(state, null);
-		cm.print(first.state);
 		String result = "";
 		
-		for (int depth = 0; depth < 5; depth++){
+		for (int depth = 0; depth < 11; depth++){
 			System.out.println(depth);
 			
 			// should turn into a child node for this
@@ -51,14 +53,19 @@ public class Solve {
 			}
 		}
 		
-		return result;
+		return "";
 	}
 	
+	/*
+	 * This is the recursive part of the IDS search. This function first checks to see if the goal state or limit has been reached.
+	 * If so, the recursion ends. Otherwise it tests the node to find out the last rotation performed on it, and then selects
+	 * the appropriate method that will avoid using that rotation again.
+	 */
 	private static String recursiveDLS(CubeNode node, CubeManipulator cm, int limit) {
 		
 		// Check for goal state
 		if (Arrays.equals(node.state, cm.goalState)) {
-			return "yeah we got it!"; // solution
+			return ""; // solution
 		} else if (limit == 0) {
 			return "cutoff";
 		} else {
@@ -647,18 +654,18 @@ public class Solve {
 			
 		} else {
 			if (i == 6) {
-				CubeNode newNode = new CubeNode(cm.rotateOrange90DegreesRight(state), "O1");
-				cm.rotateOrange270DegreesRight(state);
+				CubeNode newNode = new CubeNode(cm.rotateBlue90DegreesRight(state), "B1");
+				cm.rotateBlue270DegreesRight(state);
 				return newNode;
 
 			} else if (i == 7){
-				CubeNode newNode = new CubeNode(cm.rotateOrange180DegreesRight(state), "O2");
-				cm.rotateOrange180DegreesRight(state);
+				CubeNode newNode = new CubeNode(cm.rotateBlue180DegreesRight(state), "B2");
+				cm.rotateBlue180DegreesRight(state);
 				return newNode;
 
 			} else if (i == 8) {
-				CubeNode newNode = new CubeNode(cm.rotateOrange270DegreesRight(state), "O3");
-				cm.rotateOrange90DegreesRight(state);
+				CubeNode newNode = new CubeNode(cm.rotateBlue270DegreesRight(state), "B3");
+				cm.rotateBlue90DegreesRight(state);
 				return newNode;
 
 			} else if (i == 9) {

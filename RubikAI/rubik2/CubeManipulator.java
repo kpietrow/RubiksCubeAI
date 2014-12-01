@@ -13,10 +13,10 @@ public class CubeManipulator {
 	
 	public BitSet[] goalState = new BitSet[20];
 			
-	/* Constructs the cube.
-	* This process has the luxury of being able to be a bit costly, as it will only
-	* need to be run once.
-	*/
+	/* 
+	 * Constructs the cube. This method takes substrings from the cube that was read in, and constructs corner and edge
+	 * cubies from them. This new state is the new cube, which is returned. This method should only be run once.
+	 */
 	public BitSet[] constructCube(String cubeinfo) {
 		
 		// Check first to make sure that the centers are valid
@@ -53,6 +53,7 @@ public class CubeManipulator {
 		return state;
 	}
 	
+	// Constructs the goal state (all cubies in their proper place. This is used as a reference later.
 	private void constructGoalState() {
 		// Construct corners
 		goalState[0] = constructCorner("0", "2", "1");
@@ -80,7 +81,9 @@ public class CubeManipulator {
 		
 	}
 	
-	// Creates a corner cubie
+	/*
+	 * Takes in three sides and constructs a corner cubie.
+	 */
 	private BitSet constructCorner(String side1, String side2, String side3) {
 		BitSet corner = new BitSet(5);
 		int[] sorted = new int[3];
@@ -121,6 +124,9 @@ public class CubeManipulator {
 		return corner;
 	}
 	
+	/*
+	 * Converts the value of a corner cubie from int to bits
+	 */
 	private BitSet cornerIntToBits(BitSet corner, int integer) {
 		// Get binary representation of corner position in validCorners list
 		String bits = Integer.toBinaryString(integer);
@@ -139,6 +145,9 @@ public class CubeManipulator {
 		return corner;
 	}
 	
+	/*
+	 * Converts the value of an edge from an int to bits
+	 */
 	private BitSet edgeIntToBits(BitSet edge, int integer) {
 		// Get binary representation of edge position in validEdges list
 		String bits = Integer.toBinaryString(integer);
@@ -158,8 +167,10 @@ public class CubeManipulator {
 		return edge;
 	}
 
-
-	// Takes in two sides, returns and edge cubie
+	/*
+	 * This method takes in two sides, and constructs a new edge cubie in the bitset.
+	 * The first four bits are which cubie it is, while the fifth is the orientation.
+	 */
 	private BitSet constructEdge(String side1, String side2) {
 		
 		BitSet edge = new BitSet(5);
@@ -238,6 +249,9 @@ public class CubeManipulator {
 		}
 	}
 	
+	/*
+	 * Converts the value of a corner cubie from bits to an int
+	 */
 	private int getValueOfCorner(BitSet corner) {
 		int value = 0;
 		
@@ -256,6 +270,9 @@ public class CubeManipulator {
 		return value;
 	}
 	
+	/*
+	 * Converts the value of an edge cubie from bits to an int
+	 */
 	private int getValueOfEdge(BitSet edge) {
 		int value = 0;
 		
@@ -278,6 +295,9 @@ public class CubeManipulator {
 		return value + 8;
 	}
 	
+	/*
+	 * Prints the state of a cube to the console.
+	 */
 	public void print(BitSet[] state) {
 		System.out.println(state[0].toString() + " - " + getValueOfCorner(state[0]));
 		System.out.println(state[1].toString() + " - " + getValueOfCorner(state[1]));
@@ -306,7 +326,11 @@ public class CubeManipulator {
 
 	}
 	
-	
+	/*
+	 * These are the rotation functions from here on down. There are three rotations per side: 90 degrees
+	 * 180 degrees, and 270 degrees. Each of these rotation functions has to account for the shifting positions of
+	 * both corner cubies and edge cubies, and also to account for how their orientations will change during a move.
+	 */
 	public BitSet[] rotateRed90DegreesRight(BitSet[] state) {
 		
 		// Stores { B Y R }
